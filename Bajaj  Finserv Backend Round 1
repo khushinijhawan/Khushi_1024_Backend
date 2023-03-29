@@ -1,0 +1,33 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+app.use(bodyParser.json());
+
+app.post((req, res) => {
+  const inputArray = req.body.array;
+
+  const userId = req.body.userId;
+  const emailId = req.body.emailId;
+  const collegeRollNumber = req.body.collegeRollNumber;
+
+  const evenNumbers = inputArray.filter((num) => num % 2 === 0);
+  const oddNumbers = inputArray.filter((num) => num % 2 === 1);
+
+  const upperCaseAlphabets = inputArray
+    .filter((char) => /[a-zA-Z]/.test(char))
+    .map((char) => char.toUpperCase());
+
+  const result = {
+    status: 'success',
+    userId: userId,
+    emailId: emailId,
+    collegeRollNumber: collegeRollNumber,
+    evenNumbers: evenNumbers,
+    oddNumbers: oddNumbers,
+    upperCaseAlphabets: upperCaseAlphabets,
+  };
+  res.json(result);
+});
+
+app.listen(8081, () => console.log('Server started on port 8081.'));
